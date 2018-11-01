@@ -1,4 +1,13 @@
-<?php include './classes/config.php' ?>
+<?php 
+    include './classes/config.php';
+    include './classes/orfanatos.class.php';
+    // $n = 0 + $m;
+    // $m = $p * 8;
+    // $m = $m + $n;
+    // $p = intval(@$_GET['p']);
+    // $num_total = $orfanatos->getOrfanato();
+    // $num_paginas = $num_total / $n;
+ ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -51,41 +60,68 @@
             <h2>ORFANATOS</h2>
         </div>
         <div class="states">
-            <select name="estado">
-                <option selected="" value="">Selecione o Estado (UF)</option>
-                <option value="Acre">Acre</option>
-                <option value="Alagoas">Alagoas</option>
-                <option value="Amapá">Amapá</option>
-                <option value="Amazonas">Amazonas</option>
-                <option value="Bahia">Bahia</option>
-                <option value="Ceará">Ceará</option>
-                <option value="Distrito Federal">Distrito Federal</option>
-                <option value="Espírito Santo">Espírito Santo</option>
-                <option value="Goiás">Goiás</option>
-                <option value="Maranhão">Maranhão</option>
-                <option value="Mato Grosso">Mato Grosso</option>
-                <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
-                <option value="Minas Gerais">Minas Gerais</option>
-                <option value="Pará">Pará</option>
-                <option value="Paraíba">Paraíba</option>
-                <option value="Paraná">Paraná</option>
-                <option value="Pernambuco">Pernambuco</option>
-                <option value="Piauí">Piauí</option>
-                <option value="Rio de Janeiro">Rio de Janeiro</option>
-                <option value="Rio Grande do Sul">Rio Grande do Sul</option>
-                <option value="Rio Grande do Norte">Rio Grande do Norte</option>
-                <option value="Rondônia">Rondônia</option>
-                <option value="Roraima">Roraima</option>
-                <option value="Santa Catarina">Santa Catarina</option>
-                <option value="São Paulo">São Paulo</option>
-                <option value="Sergipe">Sergipe</option>
-                <option value="Tocantins">Tocantins</option>
-            </select>
+            <form>
+                <select name="estado">
+                    <option selected="" value="">Selecione o Estado (UF)</option>
+                    <option value="Acre">Acre</option>
+                    <option value="Alagoas">Alagoas</option>
+                    <option value="Amapa">Amapá</option>
+                    <option value="Amazonas">Amazonas</option>
+                    <option value="Bahia">Bahia</option>
+                    <option value="Ceara">Ceará</option>
+                    <option value="Distrito Federal">Distrito Federal</option>
+                    <option value="Espírito Santo">Espírito Santo</option>
+                    <option value="Goiás">Goiás</option>
+                    <option value="Maranhao">Maranhão</option>
+                    <option value="Mato Grosso">Mato Grosso</option>
+                    <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                    <option value="Minas Gerais">Minas Gerais</option>
+                    <option value="Para">Pará</option>
+                    <option value="Paraiba">Paraíba</option>
+                    <option value="Parana">Paraná</option>
+                    <option value="Pernambuco">Pernambuco</option>
+                    <option value="Piaui">Piauí</option>
+                    <option value="Rio de Janeiro">Rio de Janeiro</option>
+                    <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                    <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                    <option value="Rondonia">Rondônia</option>
+                    <option value="Roraima">Roraima</option>
+                    <option value="Santa Catarina">Santa Catarina</option>
+                    <option value="Sao Paulo">São Paulo</option>
+                    <option value="Sergipe">Sergipe</option>
+                    <option value="Tocantins">Tocantins</option>
+                </select>
+                    <input type="submit" value="Filtrar">
+            </form>
         </div>
         <section class="box-orphanage" id="orfanatos">
                 <ul>
                 <?php
-                    include './classes/orfanatos.class.php';
+                if(isset($_GET['estado']) && !empty($_GET['estado'])) {
+                    $estado = addslashes($_GET['estado']);
+                    $orfanato = $orfanatos->getOrfanatosEstado($estado);
+
+                    foreach ($orfanato as $o) {
+                ?>
+                    <li>
+                        <div class="box">
+                            <h3><?php echo utf8_encode($o['nome']) ?></h3>
+                            <p class="info">Estado:</p>
+                            <p><?php echo utf8_encode($o['estado']) ?></p>
+                            <p class="info">Endereço:</p>
+                            <p><?php echo utf8_encode($o['endereco']) ?></p>
+                            <p class="info">Telefone:</p>
+                            <p><?php echo $o['telefone'] ?></p>
+                            <p class="info">E-mail:</p>
+                            <p><?php echo $o['email'] ?></p>
+                            <p class="info">Dias e Horários disponíveis:</p>
+                            <p><?php echo utf8_encode($o['horario']) ?></p>                        
+                        </div>
+                    </li>
+                <?php 
+                } 
+                } else if(!isset($_GET['estado']) && empty($_GET['estado'])) {
+
                     $orfanato = $orfanatos->getOrfanatos();
 
                     foreach ($orfanato as $o) {
@@ -105,8 +141,16 @@
                             <p><?php echo utf8_encode($o['horario']) ?></p>                        
                         </div>
                     </li>
-                    <?php } ?>
+                <?php } } ?>
                 </ul>
+
+                <!-- <?php 
+                    for($i = 0; $i < $num_total; $i++) {
+                        ?>
+                            <a href="index.php?p=<?php echo $i ?>"><?php echo $i + 1 ?></a>
+                        <?php
+                    }
+                ?> -->
         </section>
 
         <div class="help">

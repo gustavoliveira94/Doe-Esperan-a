@@ -21,6 +21,36 @@ class Orfanatos {
 
     }
 
+    public function getOrfanatosEstado($estado) {
+
+        global $pdo;
+        $array = array();
+        
+        $sql = "SELECT * FROM orfanatos WHERE estado = :estado";
+        $sql = $pdo->prepare($sql);
+        $sql->bindValue(":estado", $estado);
+        $sql->execute();
+
+        if($sql->rowCOunt() > 0) {
+            $array = $sql->fetchAll();
+        }
+
+        return $array;
+
+    }
+
+    public function getOrfanato() {
+
+        global $pdo;
+        
+        $sql = "SELECT * FROM orfanatos";
+        $sql = $pdo->prepare($sql);
+        $sql->execute();
+
+        return $sql->rowCount();
+
+    }
+
     public function getOrfanatos() {
 
         global $pdo;
@@ -35,26 +65,6 @@ class Orfanatos {
         }
 
         return $array;
-
-    }
-
-    public function getOrfanato($id) {
-
-        global $pdo;
-        $array = array();
-        
-        $sql = "SELECT * FROM orfanatos WHERE id = :id AND id = :id AND id = :id AND id = :id AND id = :id AND id = :id";
-        $sql = $pdo->prepare($sql);
-        $sql->bindValue(":id", $id);
-        $sql->execute();
-
-        if($sql->rowCOunt() > 0) {
-            $array = $sql->fetchAll();
-        }
-
-        return $array = array(
-            "id" => $id
-        );
 
     }
 

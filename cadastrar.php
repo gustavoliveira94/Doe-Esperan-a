@@ -50,9 +50,9 @@
             ?>
             <form method="post">
                 <label for="nome">Nome:*</label>
-                <input type="text" name="nome" placeholder="Digite o nome">
+                <input type="text" name="nome" placeholder="Digite o nome" required>
                 <label for="estado">Estado:*</label>
-                <select name="estado">
+                <select name="estado" required>
                     <option selected="" value="">Selecione o Estado (UF)</option>
                     <option value="Acre">Acre</option>
                     <option value="Alagoas">Alagoas</option>
@@ -83,13 +83,13 @@
                     <option value="Tocantins">Tocantins</option>
                 </select>
                 <label for="endereco">Endereço:*</label>
-                <input type="text" name="endereco"  placeholder="Digite o endereço">
+                <input type="text" name="endereco"  placeholder="Digite o endereço" required>
                 <label for="telefone">Telefone:*</label>
-                <input type="tel" name="telefone"  placeholder="Digite o telefone">
+                <input type="tel" name="telefone"  placeholder="Digite o telefone" required>
                 <label for="email">E-mail:</label>
                 <input type="email" name="email"  placeholder="Digite o E-mail">
                 <label for="horario">Dias e Horários disponíveis:*</label>
-                <input type="text" name="horario"  placeholder="Digite o horário - Dia e Hora">
+                <input type="text" name="horario"  placeholder="Digite o horário - Dia e Hora" required>
                 <input type="submit" value="CADASTRAR">
             </form>
         </div>

@@ -146,11 +146,21 @@ header {
     margin-bottom: 50px;
 }
 
-.states select {
+.states form select {
     background-color: #dfdfdf;
     height: 30px;
     width: 220px;
     border: none;
+    border-radius: 5px;
+    border: 1px solid #c0c0c0;
+}
+
+.states form input:last-of-type {
+    background-color: rgb(220, 20, 60);
+    height: 30px;
+    width: 80px;
+    color: #ffffff;
+    cursor: pointer;
     border-radius: 5px;
     border: 1px solid #c0c0c0;
 }
